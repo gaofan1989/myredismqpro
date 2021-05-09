@@ -1,8 +1,11 @@
 package com.gaofan.mqreids;
 
+import com.gaofan.mqreids.entity.User;
+import com.gaofan.mqreids.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.redisson.api.RedissonClient;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
@@ -13,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 @Slf4j
@@ -30,7 +37,30 @@ public class MqreidsApplicationTests {
 	private RedissonClient redissonClient;
 
 	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+
+	/**
+	 * com.zaxxer.hikari.HikariDataSource
+	 * com.mysql.jdbc.JDBC4Connection
+	 */
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
 	private AmqpAdmin amqpAdmin;
+
+	@Test
+	public void testmybatis() throws SQLException {
+		UserMapper mapper = sqlSessionTemplate.getMapper(UserMapper.class);
+		log.info("sqlSessionTemplate获取mapper: --> {}", mapper.getClass());
+		User user = mapper.getById(1);
+		log.info("user --> {}", user);
+
+		log.info("数据源dataSource: --> {}", dataSource.getClass());
+		Connection connection = dataSource.getConnection();
+		log.info("数据库连接Connection: --> {}", connection);
+
+	}
 
 	@Test
 	public void testrabbitmq() {
