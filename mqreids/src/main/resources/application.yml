@@ -1,0 +1,14 @@
+server:
+  port: 9090
+spring:
+  rabbitmq:
+    host: 192.168.56.132
+    virtual-host: /
+    port: 5672
+    publisher-confirm-type: correlated
+    publisher-returns: true
+
+  redis:
+    host: 192.168.56.132
+    port: 6379
+
