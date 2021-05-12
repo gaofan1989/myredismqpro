@@ -40,8 +40,8 @@ public class MqreidsApplicationTests {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	/**
-	 * com.zaxxer.hikari.HikariDataSource
-	 * com.mysql.jdbc.JDBC4Connection
+	 * 默认：com.zaxxer.hikari.HikariDataSource 、 com.mysql.jdbc.JDBC4Connection
+	 * druid: com.alibaba.druid.pool.DruidDataSource com.mysql.cj.jdbc.ConnectionImpl
 	 */
 	@Autowired
 	private DataSource dataSource;
@@ -49,11 +49,14 @@ public class MqreidsApplicationTests {
 	@Autowired
 	private AmqpAdmin amqpAdmin;
 
+	@Autowired
+	private UserMapper userMapper;
+
 	@Test
 	public void testmybatis() throws SQLException {
 		UserMapper mapper = sqlSessionTemplate.getMapper(UserMapper.class);
 		log.info("sqlSessionTemplate获取mapper: --> {}", mapper.getClass());
-		User user = mapper.getById(1);
+		User user = userMapper.getById(1);
 		log.info("user --> {}", user);
 
 		log.info("数据源dataSource: --> {}", dataSource.getClass());

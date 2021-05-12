@@ -53,7 +53,7 @@ public class BeanConfig {
     }
 
     public static void main(String[] args) {
-        String format = String.format("redis://%s:%s", "192.168.56.132", "6379");
+        String format = String.format("redis://%s:%s", "192.168.56.133", "6379");
         System.out.println(format);//redis://192.168.56.132:6379
     }
 

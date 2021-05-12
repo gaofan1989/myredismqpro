@@ -2,20 +2,30 @@ server:
   port: 9090
 spring:
   rabbitmq:
-    host: 192.168.56.132
+    host: 192.168.56.133
     virtual-host: /
     port: 5672
     publisher-confirm-type: correlated
     publisher-returns: true
 
   redis:
-    host: 192.168.56.132
+    host: 192.168.56.133
     port: 6379
 
   datasource:
     username: root
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/book?characterEncoding=utf-8&useSSL=false
-
+    #type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filters: stat,wall
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
 mybatis:
   mapper-locations: classpath:/mapper/*
