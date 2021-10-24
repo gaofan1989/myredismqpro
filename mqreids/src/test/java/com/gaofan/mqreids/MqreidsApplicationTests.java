@@ -1,12 +1,14 @@
 package com.gaofan.mqreids;
 
+import com.alibaba.fastjson.JSON;
 import com.gaofan.mqreids.entity.User;
 import com.gaofan.mqreids.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.junit.platform.commons.util.StringUtils;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.redisson.api.RedissonClient;
+//import org.redisson.api.RedissonClient;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
@@ -20,6 +22,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -33,8 +38,8 @@ public class MqreidsApplicationTests {
 	@Autowired
 	private RedisTemplate<Object, Object> redisTemplate;
 
-	@Autowired
-	private RedissonClient redissonClient;
+//	@Autowired
+//	private RedissonClient redissonClient;
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -51,6 +56,24 @@ public class MqreidsApplicationTests {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Test
+	public void test1023() {
+		User user1 = new User();
+		user1.setUsername("gaofan");
+		User user2 = new User();
+		List<User> list = new ArrayList<>();
+		list.add(user1);
+		list.add(user2);
+		String username = list.stream().filter(t -> t.getUsername() != null).map(User::getUsername).collect(Collectors.joining(","));
+		System.out.println("username ----->" + username);
+		User user = new User();
+		user.setUsername(username);
+
+		List<User> all = userMapper.getAll(user);
+		System.out.println(JSON.toJSONString(all));
+
+	}
 
 	@Test
 	public void testmybatis() throws SQLException {
@@ -88,7 +111,7 @@ public class MqreidsApplicationTests {
 	public void contextLoads() {
 		log.info("rabbitTemplate --> {}", rabbitTemplate);
 		log.info("redisTemplate --> {}", redisTemplate);
-		log.info("redissonClient --> {}", redissonClient);
+//		log.info("redissonClient --> {}", redissonClient);
 
 	}
 

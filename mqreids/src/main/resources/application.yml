@@ -27,5 +27,11 @@ spring:
     hibernate:
       ddl-auto: none
     show-sql: true
+  application:
+    name: myredis
 mybatis:
   mapper-locations: classpath:/mapper/*
+logging:
+  file:
+    path: /spring/log
+  level.com.gaofan.mqreids: debug

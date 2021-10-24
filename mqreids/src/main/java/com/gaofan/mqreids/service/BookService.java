@@ -20,6 +20,9 @@ public class BookService {
 
     @Transactional //加上该注解还是解决不了懒加载的问题，接口返回还是报错 todo
     public BookEntity getOne(Integer id) {
+        BookEntity afeafasave = bookMapper.save(null);
+        Thread.currentThread().getName();
+
         return bookMapper.getOne(id);
     }
 
