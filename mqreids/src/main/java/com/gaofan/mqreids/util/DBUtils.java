@@ -14,6 +14,7 @@ public class DBUtils {
         PreparedStatement preparedStatement = connection.prepareStatement("select * from t_book where id = ?");
         preparedStatement.setInt(1, 1);
         ResultSet resultSet = preparedStatement.executeQuery();
+        System.out.println("-----------------------------");
         while (resultSet.next()){
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
