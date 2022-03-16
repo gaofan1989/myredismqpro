@@ -34,4 +34,9 @@ mybatis:
 logging:
   file:
     path: /spring/log
-  level.com.gaofan.mqreids: debug
+  level:
+    com.gaofan.mqreids: debug
+    org:
+      hibernate:
+        SQL: debug
+

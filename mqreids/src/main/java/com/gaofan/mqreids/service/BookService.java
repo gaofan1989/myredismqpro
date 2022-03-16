@@ -3,6 +3,7 @@ package com.gaofan.mqreids.service;
 import com.gaofan.mqreids.entity.BookEntity;
 import com.gaofan.mqreids.mapper.BookMapper;
 import com.gaofan.mqreids.mapper.UserMapper;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ import javax.transaction.Transactional;
 @Service
 public class BookService {
 
+
+
+    @DubboReference(async = true)
     @Autowired
     private BookMapper bookMapper;
 

@@ -32,4 +32,8 @@
 
     </select>
 
+    <select id="getTest" parameterType="int" resultType="string">
+        select 'hello'
+    </select>
+
 </mapper>
