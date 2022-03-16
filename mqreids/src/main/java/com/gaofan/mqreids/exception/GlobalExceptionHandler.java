@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BusinessException.class)
     public String getExe(HttpServletRequest request, BusinessException be) {
         //todo 自己的业务逻辑
+        System.out.println("自己的业务逻辑");
         return "failure";
     }
 }
